@@ -32,6 +32,14 @@ function Header() {
   </header>;
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 function Footer() {
   return <footer className="site-footer">
     <div className="footer-main">
@@ -130,5 +138,5 @@ function Contact() {
 }
 
 export default function App() {
-  return <><Header/><Routes><Route path="/" element={<Home/>}/><Route path="/services" element={<Services/>}/><Route path="/inspiration" element={<Inspiration/>}/><Route path="/contact" element={<Contact/>}/><Route path="*" element={<Home/>}/></Routes><Footer/><a className="mobile-booking" href={MSG} target="_blank" rel="noreferrer">Book via Messenger <Arrow diagonal /></a></>;
+  return <><ScrollToTop/><Header/><Routes><Route path="/" element={<Home/>}/><Route path="/services" element={<Services/>}/><Route path="/inspiration" element={<Inspiration/>}/><Route path="/contact" element={<Contact/>}/><Route path="*" element={<Home/>}/></Routes><Footer/><a className="mobile-booking" href={MSG} target="_blank" rel="noreferrer">Book via Messenger <Arrow diagonal /></a></>;
 }
