@@ -5,10 +5,10 @@ const WA = 'https://wa.me/639977491555?text=Hi%20JESS%20Salon%20at%20Home!%20I%2
 const FB = 'https://www.facebook.com/profile.php?id=61580949253081';
 const MSG = 'https://m.me/61580949253081';
 const PHONE = 'tel:+639977491555';
-const localImages = import.meta.glob('../imgs/*.png', { eager: true, query: '?url', import: 'default' });
+const localImages = import.meta.glob('../imgs/{balayage-color,defined-curls,hair-inspiration,hero-hair,home-service,mens-haircut,sleek-straight,stylist-at-work}.png', { eager: true, query: '?url', import: 'default' });
 const img = (name) => localImages[`../imgs/${name}.png`];
 const logo = new URL('../imgs/logo.jpeg', import.meta.url).href;
-const gcashQrPlaceholder = new URL('../imgs/gcash-qr-placeholder.svg', import.meta.url).href;
+const gcashQrImage = new URL('../imgs/gcash-qr.png', import.meta.url).href;
 
 const navItems = [
   ['Home', '/'],
@@ -230,17 +230,26 @@ function BookingBand() {
 
 function Services() {
   const [openCategory, setOpenCategory] = useState('');
+  const categoryRefs = React.useRef({});
 
   const toggleCategory = (title) => {
-    setOpenCategory((current) => (current === title ? '' : title));
+    setOpenCategory((current) => current === title ? '' : title);
   };
+
+  useEffect(() => {
+    if (!openCategory) return undefined;
+    const timeoutId = window.setTimeout(() => {
+      categoryRefs.current[openCategory]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 380);
+    return () => window.clearTimeout(timeoutId);
+  }, [openCategory]);
 
   return <main className="page-main"><PageIntro eyebrow="A MENU OF POSSIBILITIES" title={<>Services, <em>made personal.</em></>} text="From a fresh cut to a change in color or texture, tell us what you’re considering. We’ll help you inquire about the right service for your hair." />
     <section className="services-menu section-shell"><div className="menu-aside"><span className="eyebrow">THE JESS MENU</span><p>Select a category below to explore the full list of services and pricing information.</p></div>
       <div className="service-list">
         {serviceCategories.map((category) => {
           const isOpen = openCategory === category.title;
-          return <article className={`service-category ${isOpen ? 'is-open' : ''}`} key={category.title}>
+          return <article ref={(element) => { categoryRefs.current[category.title] = element; }} className={`service-category ${isOpen ? 'is-open' : ''}`} key={category.title}>
             <button type="button" className="service-category-header" onClick={() => toggleCategory(category.title)} aria-expanded={isOpen}>
               <h3>{category.title}</h3>
               <span className="accordion-icon" aria-hidden="true">+</span>
@@ -306,7 +315,7 @@ function Contact() {
           <p><strong>Major service bookings:</strong> ₱1,500 reservation fee</p>
         </div>
         <figure className="payment-placeholder">
-          <img src={gcashQrPlaceholder} alt="Temporary GCash QR code placeholder for reservation payment. Replace with the official QR code image when provided by the owner." />
+          <img src={gcashQrImage} alt="JESS Salon at Home payment QR code for reservation payment." />
           <figcaption>GCash Reservation Payment</figcaption>
         </figure>
         <div className="booking-details">
