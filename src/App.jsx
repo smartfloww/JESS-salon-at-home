@@ -8,6 +8,7 @@ const PHONE = 'tel:+639977491555';
 const localImages = import.meta.glob('../imgs/*.png', { eager: true, query: '?url', import: 'default' });
 const img = (name) => localImages[`../imgs/${name}.png`];
 const logo = new URL('../imgs/logo.jpeg', import.meta.url).href;
+const gcashQrPlaceholder = new URL('../imgs/gcash-qr-placeholder.svg', import.meta.url).href;
 
 const navItems = [
   ['Home', '/'],
@@ -27,7 +28,7 @@ function Header() {
     <button className="menu-toggle" aria-expanded={open} aria-label={open ? 'Close navigation menu' : 'Open navigation menu'} onClick={() => setOpen(!open)}><span/><span/></button>
     <nav className={open ? 'main-nav is-open' : 'main-nav'} aria-label="Main navigation">
       {navItems.map(([label, path]) => <NavLink key={path} to={path} end={path === '/'} className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>{label}</NavLink>)}
-      <a href={MSG} className="nav-book" target="_blank" rel="noreferrer">Book a visit <Arrow diagonal /></a>
+      <Link to="/contact#booking" className="nav-book">Book a visit <Arrow diagonal /></Link>
     </nav>
   </header>;
 }
@@ -52,22 +53,137 @@ function Footer() {
   </footer>;
 }
 
-function BookingLink({ href = MSG, children, className = 'button button-gold', ...props }) {
-  return <a href={href} className={className} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noreferrer' : undefined} {...props}>{children}<Arrow diagonal /></a>;
+function BookingLink({ href = '/contact#booking', children, className = 'button button-gold', ...props }) {
+  const isExternal = /^https?:\/\//.test(href);
+  if (isExternal) {
+    return <a href={href} className={className} target="_blank" rel="noreferrer" {...props}>{children}<Arrow diagonal /></a>;
+  }
+  return <Link to={href} className={className} {...props}>{children}<Arrow diagonal /></Link>;
 }
 
 function PageIntro({ eyebrow, title, text }) {
   return <section className="page-intro"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1>{text && <p className="intro-copy">{text}</p>}</section>;
 }
 
-const serviceCards = [
-  { n: '01', title: 'Haircuts', copy: 'A considered cut for your length, texture and everyday style.', tags: 'MEN & WOMEN' },
-  { n: '02', title: 'Basic hair color', copy: 'Single-process color without bleach. Share your starting shade and the color you have in mind when you inquire.', tags: 'WITHOUT BLEACH' },
-  { n: '03', title: 'Fashion color', copy: 'Highlights, balayage, ombré and peek-a-boo color. Let’s talk through your inspiration and hair history first.', tags: 'HIGHLIGHTS · BALAYAGE · MORE' },
-  { n: '04', title: 'Brazilian hair treatments', copy: 'A salon service brought to your home. Ask about suitability and service details for your hair.', tags: 'HAIR TREATMENT' },
-  { n: '05', title: 'Straightening', copy: 'Choose from rebond, semi-rebond or protein straight bond. Service details depend on your hair and desired look.', tags: 'REBOND · SEMI-REBOND · PROTEIN STRAIGHT BOND' },
-  { n: '06', title: 'Perms', copy: 'A perm service to explore a new shape and texture. Inquire to discuss your hair and the look you want.', tags: 'TEXTURE & SHAPE' },
+const haircutPricing = [
+  { label: 'Haircut rate', value: '₱999' },
+  { label: 'Additional person', value: '+₱500' },
 ];
+
+const priceTables = {
+  'Basic Hair Color': [
+    ['Roots Regrowth', '₱1,500'],
+    ['Short', '₱2,000'],
+    ['Medium', '₱2,500'],
+    ['Long', '₱3,000'],
+    ['Extra Long', '₱3,500'],
+    ['Super Long', '₱4,000'],
+  ],
+  'Fashion Color': [
+    ['Roots Regrowth', '₱4,999'],
+    ['Short', '₱5,500'],
+    ['Medium', '₱6,000'],
+    ['Long', '₱6,500'],
+    ['Extra Long', '₱7,000'],
+    ['Super Long', '₱7,500'],
+  ],
+  'Deep Treatment': [
+    ['Roots Regrowth', '₱1,500'],
+    ['Short', '₱2,000'],
+    ['Medium', '₱2,500'],
+    ['Long', '₱3,000'],
+    ['Extra Long', '₱3,500'],
+    ['Super Long', '₱4,000'],
+  ],
+  'Hair Rebonding': [
+    ['Roots Regrowth (1–3 inches)', '₱2,500'],
+    ['Short', '₱2,800'],
+    ['Medium', '₱3,100'],
+    ['Long', '₱3,500'],
+    ['Extra Long', '₱4,000'],
+    ['Super Long', '₱5,000'],
+  ],
+  'Hair Perming': [
+    ['Roots Regrowth', '₱2,000'],
+    ['Short', '₱2,500'],
+    ['Medium', '₱3,000'],
+    ['Long', '₱3,500'],
+    ['Extra Long', '₱4,000'],
+    ['Super Long', '₱5,000'],
+  ],
+  'Rebond + Color + Keratin': [
+    ['Roots Regrowth', '₱3,000'],
+    ['Short', '₱3,500'],
+    ['Medium', '₱4,000'],
+    ['Long', '₱4,500'],
+    ['Extra Long', '₱5,000'],
+    ['Super Long', '₱6,000'],
+  ],
+};
+
+const serviceCategories = [
+  {
+    title: 'Haircuts',
+    groups: [
+      { heading: 'For Men', services: ['Classic Haircut', 'Modern Haircut'] },
+      { heading: 'For Women', services: ['Pixie Cut', 'Bob Cut', 'Bixie Cut', 'Wolf Cut', 'Layered Cut', 'Curtain Bangs'] },
+      {
+        heading: 'Additional haircut options',
+        services: ['Haircut for Busy Moms', 'Kids\' Haircut', 'Haircut for Busy Professionals', 'Haircut for Senior Citizens', 'Haircut for Basketball Players', 'Haircut for Persons with Disabilities (PWD)', 'Haircut for Persons with Special Needs'],
+      },
+    ],
+    pricing: haircutPricing,
+  },
+  {
+    title: 'Toupee Haircut & Hairstyling',
+    groups: [{ heading: 'Services', services: ['Haircut and Hairstyling for Toupee Hair', 'Hair Blending'] }],
+    pricing: null,
+  },
+  {
+    title: 'Hair Coloring',
+    groups: [{ heading: 'Services', services: ['Basic Hair Color', 'Fashion Color', 'Special Hair Color', 'Hair Color Correction'] }],
+    pricing: null,
+  },
+  {
+    title: 'Hair Treatments',
+    groups: [{ heading: 'Services', services: ['Deep Treatment', 'Hot Oil Treatment', 'Hair Mask Treatment', 'Keratin Treatment', 'Brazilian Botox Treatment', 'Collagen Treatment', 'Brazilian Hair Treatment'] }],
+    pricing: null,
+  },
+  { title: 'Hair Straightening', groups: [{ heading: 'Services', services: ['Hair Straightening'] }], pricing: null },
+  { title: 'Hair Rebonding', groups: [{ heading: 'Services', services: ['Hair Rebonding'] }], pricing: null },
+  { title: 'Hair Perming', groups: [{ heading: 'Services', services: ['Hair Perming'] }], pricing: null },
+  { title: 'Rebond Promo Package', groups: [{ heading: 'Services', services: ['Rebond + Color + Keratin'] }], pricing: null },
+  {
+    title: 'Massage Services',
+    groups: [{ heading: 'Services', services: ['Full Body Massage', 'Swedish Massage', 'Back Massage', 'Hand and Foot Massage', 'Hand and Foot Reflexology'] }],
+    pricing: null,
+  },
+  { title: 'Modern Ventosa', groups: [{ heading: 'Services', services: ['Modern Ventosa'] }], pricing: null },
+];
+
+function PriceTable({ rows }) {
+  return <div className="price-table-wrap"><table className="price-table"><thead><tr><th>Hair Length</th><th>Price</th></tr></thead><tbody>{rows.map(([length, price]) => <tr key={length}><td>{length}</td><td>{price}</td></tr>)}</tbody></table></div>;
+}
+
+function renderServiceInfo(name) {
+  if (name === 'Hair Color Correction') {
+    return <div className="service-price-detail">
+      <span>Starting range: ₱1,999–₱7,300</span>
+      <small>Price depends on hair length and complexity. Consultation may be required for complicated corrections.</small>
+    </div>;
+  }
+
+  if (name === 'Basic Hair Color' || name === 'Fashion Color' || name === 'Deep Treatment' || name === 'Hair Rebonding' || name === 'Hair Perming' || name === 'Rebond + Color + Keratin') {
+    return <><div className="service-price-detail"><span>Price</span></div>{priceTables[name] && <PriceTable rows={priceTables[name]} />}</>;
+  }
+
+  if (name === 'Haircut rate') {
+    return null;
+  }
+
+  return <span className="service-price is-muted">Price to be confirmed</span>;
+}
+
 const galleryItems = [
   { file: 'balayage-color', label: 'Soft dimension', kind: 'Balayage inspiration', className: 'gallery-tall' },
   { file: 'sleek-straight', label: 'Sleek lengths', kind: 'Straight style', className: '' },
@@ -113,9 +229,58 @@ function BookingBand() {
 }
 
 function Services() {
+  const [openCategory, setOpenCategory] = useState('');
+
+  const toggleCategory = (title) => {
+    setOpenCategory((current) => (current === title ? '' : title));
+  };
+
   return <main className="page-main"><PageIntro eyebrow="A MENU OF POSSIBILITIES" title={<>Services, <em>made personal.</em></>} text="From a fresh cut to a change in color or texture, tell us what you’re considering. We’ll help you inquire about the right service for your hair." />
-    <section className="services-menu section-shell"><div className="menu-aside"><span className="eyebrow">THE JESS MENU</span><p>Service pricing varies. Message us with your preferred service and hair details to inquire.</p><BookingLink className="text-link">Ask about pricing</BookingLink></div><div className="service-list">{serviceCards.map((service) => <article className="service-row" key={service.n}><span className="service-num">{service.n}</span><div className="service-info"><p className="eyebrow">{service.tags}</p><h2>{service.title}</h2><p>{service.copy}</p><BookingLink className="service-action">Inquire about this service <Arrow diagonal /></BookingLink></div></article>)}</div></section>
-    <section className="service-note section-shell"><img src={img('stylist-at-work')} alt="Stylist applying color during an at-home appointment" loading="lazy" /><div><p className="eyebrow">BEFORE WE BEGIN</p><h2>Let’s talk about<br/><em>your hair first.</em></h2><p>Share your current hair length, color history and a reference photo when you inquire. We can discuss the service details and pricing before you book.</p><BookingLink>Message JESS</BookingLink></div></section><BookingBand />
+    <section className="services-menu section-shell"><div className="menu-aside"><span className="eyebrow">THE JESS MENU</span><p>Select a category below to explore the full list of services and pricing information.</p></div>
+      <div className="service-list">
+        {serviceCategories.map((category) => {
+          const isOpen = openCategory === category.title;
+          return <article className={`service-category ${isOpen ? 'is-open' : ''}`} key={category.title}>
+            <button type="button" className="service-category-header" onClick={() => toggleCategory(category.title)} aria-expanded={isOpen}>
+              <h3>{category.title}</h3>
+              <span className="accordion-icon" aria-hidden="true">+</span>
+            </button>
+            <div className={`accordion-panel ${isOpen ? 'is-open' : ''}`}>
+              <div className="accordion-inner">
+                {category.groups.map((group) => (
+                  <div className="category-group" key={group.heading}>
+                    <h4>{group.heading}</h4>
+                    <ul className="service-item-list">
+                      {group.services.map((serviceName) => (
+                        <li key={serviceName} className="service-item-row">
+                          <span>{serviceName}</span>
+                          {serviceName === 'Basic Hair Color' || serviceName === 'Fashion Color' || serviceName === 'Deep Treatment' || serviceName === 'Hair Rebonding' || serviceName === 'Hair Perming' || serviceName === 'Rebond + Color + Keratin' || serviceName === 'Hair Color Correction'
+                            ? renderServiceInfo(serviceName)
+                            : serviceName === 'Haircut for Busy Moms' || serviceName === 'Kids\' Haircut' || serviceName === 'Haircut for Busy Professionals' || serviceName === 'Haircut for Senior Citizens' || serviceName === 'Haircut for Basketball Players' || serviceName === 'Haircut for Persons with Disabilities (PWD)' || serviceName === 'Haircut for Persons with Special Needs' || serviceName === 'Classic Haircut' || serviceName === 'Modern Haircut' || serviceName === 'Pixie Cut' || serviceName === 'Bob Cut' || serviceName === 'Bixie Cut' || serviceName === 'Wolf Cut' || serviceName === 'Layered Cut' || serviceName === 'Curtain Bangs' || serviceName === 'Haircut and Hairstyling for Toupee Hair' || serviceName === 'Hair Blending' || serviceName === 'Special Hair Color' || serviceName === 'Hot Oil Treatment' || serviceName === 'Hair Mask Treatment' || serviceName === 'Keratin Treatment' || serviceName === 'Brazilian Botox Treatment' || serviceName === 'Collagen Treatment' || serviceName === 'Brazilian Hair Treatment' || serviceName === 'Hair Straightening' || serviceName === 'Full Body Massage' || serviceName === 'Swedish Massage' || serviceName === 'Back Massage' || serviceName === 'Hand and Foot Massage' || serviceName === 'Hand and Foot Reflexology' || serviceName === 'Modern Ventosa'
+                              ? <span className="service-price is-muted">Price to be confirmed</span>
+                              : null}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+                {category.title === 'Haircuts' && (
+                  <div className="category-group">
+                    <h4>Haircut pricing</h4>
+                    <ul className="service-price-list">
+                      {haircutPricing.map((item) => (
+                        <li key={item.label}><span>{item.label}</span><strong>{item.value}</strong></li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+          </article>;
+        })}
+      </div>
+    </section>
+    <section className="service-note section-shell"><img src={img('stylist-at-work')} alt="Stylist applying color during an at-home appointment" loading="lazy" /><div><p className="eyebrow">BEFORE WE BEGIN</p><h2>Let’s talk about<br/><em>your hair first.</em></h2><p>Share your current hair length, color history and a reference photo when you inquire. We can discuss the service details and pricing before you book.</p><BookingLink href={MSG}>Message JESS</BookingLink></div></section><BookingBand />
   </main>;
 }
 
@@ -132,11 +297,37 @@ function Contact() {
       <a className="contact-option" href={MSG} target="_blank" rel="noreferrer"><span className="contact-number">01</span><span><small>QUICK MESSAGE</small><b>Facebook Messenger</b><em>JESS Salon at Home</em></span><span className="contact-arrow">↗</span></a>
       <a className="contact-option" href={PHONE}><span className="contact-number">02</span><span><small>PREFER A CALL?</small><b>Call JESS</b><em>+63 997 749 1555</em></span><span className="contact-arrow">↗</span></a>
       <div className="contact-facts"><div><span className="eyebrow">SERVICE AREA</span><b>Metro Manila, Philippines</b></div><div><span className="eyebrow">OPENING HOURS</span><b>Daily · 8 AM–10 PM</b></div><p>Late-evening appointments should be booked in advance for a specific date. Please message us to check availability.</p></div>
+      <div id="booking" className="booking-panel">
+        <p className="eyebrow">BOOKING & PAYMENT</p>
+        <h3>Reservation instructions</h3>
+        <p>To reserve your appointment, pay the applicable reservation fee through GCash. After payment, send your booking details and payment screenshot through Facebook Messenger. Your appointment will be confirmed manually after the payment has been verified.</p>
+        <div className="booking-fees">
+          <p><strong>Haircut bookings:</strong> ₱500 reservation fee</p>
+          <p><strong>Major service bookings:</strong> ₱1,500 reservation fee</p>
+        </div>
+        <figure className="payment-placeholder">
+          <img src={gcashQrPlaceholder} alt="Temporary GCash QR code placeholder for reservation payment. Replace with the official QR code image when provided by the owner." />
+          <figcaption>GCash Reservation Payment</figcaption>
+        </figure>
+        <div className="booking-details">
+          <h4>Send these details through Messenger</h4>
+          <ul>
+            <li>Name</li>
+            <li>Contact Number</li>
+            <li>Exact Service Location</li>
+            <li>Service Requested</li>
+            <li>Preferred Date</li>
+            <li>Preferred Time</li>
+            <li>Payment Screenshot</li>
+          </ul>
+        </div>
+        <p className="reservation-policy">The reservation fee is deducted from the final service bill. Reservations are non-refundable for cancellations made within 24 hours of the appointment to protect the reserved time slot.</p>
+      </div>
       <a className="facebook-link" href={FB} target="_blank" rel="noreferrer">Visit JESS on Facebook <Arrow diagonal /></a>
     </div></section>
   </main>;
 }
 
 export default function App() {
-  return <><ScrollToTop/><Header/><Routes><Route path="/" element={<Home/>}/><Route path="/services" element={<Services/>}/><Route path="/inspiration" element={<Inspiration/>}/><Route path="/contact" element={<Contact/>}/><Route path="*" element={<Home/>}/></Routes><Footer/><a className="mobile-booking" href={MSG} target="_blank" rel="noreferrer">Book via Messenger <Arrow diagonal /></a></>;
+  return <><ScrollToTop/><Header/><Routes><Route path="/" element={<Home/>}/><Route path="/services" element={<Services/>}/><Route path="/inspiration" element={<Inspiration/>}/><Route path="/contact" element={<Contact/>}/><Route path="*" element={<Home/>}/></Routes><Footer/><Link className="mobile-booking" to="/contact#booking">Book a visit <Arrow diagonal /></Link></>;
 }

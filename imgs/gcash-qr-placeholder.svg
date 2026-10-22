@@ -1,0 +1,45 @@
+<svg width="600" height="600" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">GCash QR placeholder</title>
+  <desc id="desc">A neutral placeholder graphic for a GCash reservation payment QR code.</desc>
+  <rect width="600" height="600" rx="36" fill="#F7F1E8"/>
+  <rect x="42" y="42" width="516" height="516" rx="26" fill="#F9F5F0" stroke="#D4B568" stroke-width="4"/>
+  <rect x="92" y="92" width="180" height="180" fill="#EADFCB"/>
+  <rect x="118" y="118" width="128" height="128" fill="#F7F1E8"/>
+  <rect x="142" y="142" width="80" height="80" fill="#D4B568" opacity="0.9"/>
+  <rect x="332" y="92" width="52" height="52" fill="#EADFCB"/>
+  <rect x="410" y="92" width="52" height="52" fill="#EADFCB"/>
+  <rect x="476" y="92" width="52" height="52" fill="#EADFCB"/>
+  <rect x="332" y="170" width="52" height="52" fill="#EADFCB"/>
+  <rect x="410" y="170" width="52" height="52" fill="#EADFCB"/>
+  <rect x="476" y="170" width="52" height="52" fill="#EADFCB"/>
+  <rect x="92" y="332" width="52" height="52" fill="#EADFCB"/>
+  <rect x="170" y="332" width="52" height="52" fill="#EADFCB"/>
+  <rect x="248" y="332" width="52" height="52" fill="#EADFCB"/>
+  <rect x="332" y="332" width="52" height="52" fill="#EADFCB"/>
+  <rect x="410" y="332" width="52" height="52" fill="#EADFCB"/>
+  <rect x="476" y="332" width="52" height="52" fill="#EADFCB"/>
+  <rect x="92" y="410" width="52" height="52" fill="#EADFCB"/>
+  <rect x="170" y="410" width="52" height="52" fill="#EADFCB"/>
+  <rect x="248" y="410" width="52" height="52" fill="#EADFCB"/>
+  <rect x="332" y="410" width="52" height="52" fill="#EADFCB"/>
+  <rect x="410" y="410" width="52" height="52" fill="#EADFCB"/>
+  <rect x="476" y="410" width="52" height="52" fill="#EADFCB"/>
+  <rect x="332" y="488" width="52" height="52" fill="#EADFCB"/>
+  <rect x="410" y="488" width="52" height="52" fill="#EADFCB"/>
+  <rect x="476" y="488" width="52" height="52" fill="#EADFCB"/>
+  <rect x="92" y="488" width="52" height="52" fill="#EADFCB"/>
+  <rect x="170" y="488" width="52" height="52" fill="#EADFCB"/>
+  <rect x="248" y="488" width="52" height="52" fill="#EADFCB"/>
+  <path d="M90 56H510" stroke="#D4B568" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <circle cx="86" cy="80" r="10" fill="#D4B568" opacity="0.75"/>
+  <circle cx="514" cy="80" r="10" fill="#D4B568" opacity="0.75"/>
+  <rect x="118" y="120" width="20" height="20" fill="#F7F1E8"/>
+  <rect x="118" y="154" width="20" height="20" fill="#F7F1E8"/>
+  <rect x="152" y="120" width="20" height="20" fill="#F7F1E8"/>
+  <rect x="152" y="154" width="20" height="20" fill="#F7F1E8"/>
+  <rect x="186" y="120" width="20" height="20" fill="#F7F1E8"/>
+  <rect x="186" y="154" width="20" height="20" fill="#F7F1E8"/>
+  <circle cx="300" cy="540" r="18" fill="#D4B568" opacity="0.82"/>
+  <rect x="160" y="540" width="120" height="14" rx="7" fill="#D4B568" opacity="0.3"/>
+  <rect x="320" y="540" width="120" height="14" rx="7" fill="#D4B568" opacity="0.3"/>
+</svg>
