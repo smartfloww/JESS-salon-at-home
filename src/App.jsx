@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { Link, Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 
 const WA = 'https://wa.me/639977491555?text=Hi%20JESS%20Salon%20at%20Home!%20I%27d%20like%20to%20inquire%20about%20your%20hair%20services%20and%20book%20an%20appointment.';
 const FB = 'https://www.facebook.com/profile.php?id=61580949253081';
 const MSG = 'https://m.me/61580949253081';
 const PHONE = 'tel:+639977491555';
 const localImages = import.meta.glob('../imgs/{balayage-color,defined-curls,hair-inspiration,hero-hair,home-service,mens-haircut,sleek-straight,stylist-at-work}.png', { eager: true, query: '?url', import: 'default' });
+const workImages = import.meta.glob('../imgs/work/*.png', { eager: true, query: '?url', import: 'default' });
 const img = (name) => localImages[`../imgs/${name}.png`];
+const workImg = (name) => workImages[`../imgs/work/${name}.png`];
 const logo = new URL('../imgs/logo.jpeg', import.meta.url).href;
 const gcashQrImage = new URL('../imgs/gcash-qr.png', import.meta.url).href;
 
 const navItems = [
   ['Home', '/'],
   ['Services', '/services'],
-  ['Hair inspiration', '/inspiration'],
+  ['Our Work', '/work'],
   ['Contact', '/contact'],
 ];
 
@@ -69,6 +71,14 @@ const haircutPricing = [
   { label: 'Haircut rate', value: '₱999' },
   { label: 'Additional person', value: '+₱500' },
 ];
+
+const haircutServiceNames = new Set([
+  'Classic Haircut', 'Modern Haircut', 'Pixie Cut', 'Bob Cut', 'Bixie Cut', 'Wolf Cut',
+  'Layered Cut', 'Curtain Bangs', 'Haircut for Busy Moms', 'Kids\' Haircut',
+  'Haircut for Busy Professionals', 'Haircut for Senior Citizens',
+  'Haircut for Basketball Players', 'Haircut for Persons with Disabilities (PWD)',
+  'Haircut for Persons with Special Needs',
+]);
 
 const priceTables = {
   'Basic Hair Color': [
@@ -181,16 +191,21 @@ function renderServiceInfo(name) {
     return null;
   }
 
+  if (haircutServiceNames.has(name)) {
+    return <span className="service-price">₱999</span>;
+  }
+
   return <span className="service-price is-muted">Price to be confirmed</span>;
 }
 
-const galleryItems = [
-  { file: 'balayage-color', label: 'Soft dimension', kind: 'Balayage inspiration', className: 'gallery-tall' },
-  { file: 'sleek-straight', label: 'Sleek lengths', kind: 'Straight style', className: '' },
-  { file: 'defined-curls', label: 'Defined movement', kind: 'Curly style', className: '' },
-  { file: 'mens-haircut', label: 'Modern texture', kind: 'Men’s haircut inspiration', className: 'gallery-tall' },
-  { file: 'hair-inspiration', label: 'Long layers', kind: 'Cut & style inspiration', className: '' },
-  { file: 'hero-hair', label: 'Glossy waves', kind: 'Long hair inspiration', className: '' },
+const workItems = [
+  { file: 'work-1', label: 'Smooth, luminous lengths', kind: 'Hair straightening' },
+  { file: 'work-2', label: 'Sleek and polished', kind: 'Hair rebonding' },
+  { file: 'work-3', label: 'A fresh cut, made personal', kind: 'Men’s haircut' },
+  { file: 'work-4', label: 'Thoughtful care at home', kind: 'Senior haircut' },
+  { file: 'work-5', label: 'Soft golden dimension', kind: 'Color and treatment' },
+  { file: 'work-6', label: 'Clean lines, confident finish', kind: 'Men’s haircut' },
+  { file: 'work-7', label: 'Long, glossy finish', kind: 'Hair rebonding' },
 ];
 
 function Home() {
@@ -218,7 +233,7 @@ function Home() {
         <div className="at-home-image"><img src={img('home-service')} alt="A stylist working with a client at home" loading="lazy" /><span className="image-index">THE JESS EXPERIENCE</span></div>
         <div className="at-home-copy"><p className="eyebrow">YOUR HOME, YOUR APPOINTMENT</p><h2>Care that comes<br/><em>to you.</em></h2><p>Enjoy a hair appointment in familiar surroundings. Choose a service, share your inspiration and ask us anything before confirming a date.</p><ul className="benefit-list"><li><span>01</span><div><b>Stay in your space</b><small>Have your appointment at home, on your schedule.</small></div></li><li><span>02</span><div><b>Talk it through</b><small>Message ahead to discuss the service you have in mind.</small></div></li><li><span>03</span><div><b>For men & women</b><small>A range of hair services for different styles.</small></div></li></ul><BookingLink className="text-link">Ask about an appointment</BookingLink></div>
       </section>
-      <section className="inspiration-strip"><div className="section-shell inspiration-inner"><div><p className="eyebrow">SAVE A LITTLE INSPIRATION</p><h2>A look that feels<br/><em>like you.</em></h2><p>Explore cuts, color and texture to find a direction for your next appointment.</p><Link to="/inspiration" className="button button-outline-light">See the gallery <Arrow diagonal /></Link></div><div className="strip-images"><img src={img('defined-curls')} alt="Defined brunette curls inspiration" loading="lazy" /><img src={img('hair-inspiration')} alt="Long layered brunette hair inspiration" loading="lazy" /></div></div></section>
+      <section className="inspiration-strip work-preview-strip"><div className="section-shell inspiration-inner"><div><p className="eyebrow">JESS SALON AT HOME</p><h2>Care that comes<br/><em>to you.</em></h2><p>A glimpse at cuts, color, and polished finishes created for our clients, in the comfort of home.</p><Link to="/work" className="button button-outline-light">Explore our work <Arrow diagonal /></Link></div><div className="strip-images work-preview"><figure><img src={workImg('work-5')} alt="Finished hair color and treatment by JESS Salon at Home" loading="lazy" /><figcaption>Soft golden finish</figcaption></figure><figure><img src={workImg('work-3')} alt="A young client after a fresh haircut by JESS Salon at Home" loading="lazy" /><figcaption>Fresh cut, made personal</figcaption></figure></div></div></section>
       <BookingBand />
     </main>
   </>;
@@ -263,11 +278,7 @@ function Services() {
                       {group.services.map((serviceName) => (
                         <li key={serviceName} className="service-item-row">
                           <span>{serviceName}</span>
-                          {serviceName === 'Basic Hair Color' || serviceName === 'Fashion Color' || serviceName === 'Deep Treatment' || serviceName === 'Hair Rebonding' || serviceName === 'Hair Perming' || serviceName === 'Rebond + Color + Keratin' || serviceName === 'Hair Color Correction'
-                            ? renderServiceInfo(serviceName)
-                            : serviceName === 'Haircut for Busy Moms' || serviceName === 'Kids\' Haircut' || serviceName === 'Haircut for Busy Professionals' || serviceName === 'Haircut for Senior Citizens' || serviceName === 'Haircut for Basketball Players' || serviceName === 'Haircut for Persons with Disabilities (PWD)' || serviceName === 'Haircut for Persons with Special Needs' || serviceName === 'Classic Haircut' || serviceName === 'Modern Haircut' || serviceName === 'Pixie Cut' || serviceName === 'Bob Cut' || serviceName === 'Bixie Cut' || serviceName === 'Wolf Cut' || serviceName === 'Layered Cut' || serviceName === 'Curtain Bangs' || serviceName === 'Haircut and Hairstyling for Toupee Hair' || serviceName === 'Hair Blending' || serviceName === 'Special Hair Color' || serviceName === 'Hot Oil Treatment' || serviceName === 'Hair Mask Treatment' || serviceName === 'Keratin Treatment' || serviceName === 'Brazilian Botox Treatment' || serviceName === 'Collagen Treatment' || serviceName === 'Brazilian Hair Treatment' || serviceName === 'Hair Straightening' || serviceName === 'Full Body Massage' || serviceName === 'Swedish Massage' || serviceName === 'Back Massage' || serviceName === 'Hand and Foot Massage' || serviceName === 'Hand and Foot Reflexology' || serviceName === 'Modern Ventosa'
-                              ? <span className="service-price is-muted">Price to be confirmed</span>
-                              : null}
+                          {renderServiceInfo(serviceName)}
                         </li>
                       ))}
                     </ul>
@@ -293,10 +304,13 @@ function Services() {
   </main>;
 }
 
-function Inspiration() {
-  return <main className="page-main"><PageIntro eyebrow="THE LOOKBOOK" title={<>A little hair <em>inspiration.</em></>} text="A collection of style references to help you start the conversation. These images are inspirational, not examples of verified JESS client results." />
-    <section className="gallery section-shell">{galleryItems.map((item, i) => <figure className={`gallery-item ${item.className}`} key={item.file}><div className="gallery-photo"><img src={img(item.file)} alt={`${item.kind}: ${item.label}`} loading="lazy" /><span className="gallery-count">0{i + 1}</span></div><figcaption><span>{item.label}</span><small>{item.kind}</small></figcaption></figure>)}</section>
-    <p className="gallery-disclaimer">Style references shown for inspiration only. They are not verified examples of salon client results.</p><BookingBand />
+function OurWork() {
+  return <main className="page-main work-page"><PageIntro eyebrow="JESS SALON AT HOME" title={<>Our work, <em>made personal.</em></>} text="A selection of real cuts, color, and hair finishes from appointments with our clients. Every look is shaped around the person wearing it." />
+    <section className="work-gallery-section" aria-label="JESS Salon at Home client work">
+      <div className="work-gallery-intro section-shell"><div><p className="eyebrow">A CLOSER LOOK</p><h2>Made for <em>you.</em></h2></div><p>Personal services. Beautifully finished, in the comfort of home.</p></div>
+      <div className="work-gallery section-shell">{workItems.map((item, i) => <figure className={`work-item work-item-${i + 1}`} key={item.file}><div className="work-photo"><img src={workImg(item.file)} alt={`${item.kind}: ${item.label}`} loading="lazy" /><span className="work-count">{String(i + 1).padStart(2, '0')}</span></div><figcaption><span>{item.label}</span><small>{item.kind}</small></figcaption></figure>)}</div>
+    </section>
+    <p className="work-note">Real appointments, thoughtfully finished at home.</p><BookingBand />
   </main>;
 }
 
@@ -338,5 +352,5 @@ function Contact() {
 }
 
 export default function App() {
-  return <><ScrollToTop/><Header/><Routes><Route path="/" element={<Home/>}/><Route path="/services" element={<Services/>}/><Route path="/inspiration" element={<Inspiration/>}/><Route path="/contact" element={<Contact/>}/><Route path="*" element={<Home/>}/></Routes><Footer/><Link className="mobile-booking" to="/contact#booking">Book a visit <Arrow diagonal /></Link></>;
+  return <><ScrollToTop/><Header/><Routes><Route path="/" element={<Home/>}/><Route path="/services" element={<Services/>}/><Route path="/work" element={<OurWork/>}/><Route path="/inspiration" element={<Navigate to="/work" replace />}/><Route path="/contact" element={<Contact/>}/><Route path="*" element={<Home/>}/></Routes><Footer/><Link className="mobile-booking" to="/contact#booking">Book a visit <Arrow diagonal /></Link></>;
 }
