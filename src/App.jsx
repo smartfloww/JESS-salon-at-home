@@ -82,52 +82,82 @@ const haircutServiceNames = new Set([
 
 const priceTables = {
   'Basic Hair Color': [
-    ['Roots Regrowth', '₱1,500'],
-    ['Short', '₱2,000'],
-    ['Medium', '₱2,500'],
-    ['Long', '₱3,000'],
-    ['Extra Long', '₱3,500'],
-    ['Super Long', '₱4,000'],
+    ['Roots Regrowth', '₱1,500', '2 hrs'],
+    ['Short', '₱2,000', '3 hrs'],
+    ['Medium', '₱2,500', '3 hrs'],
+    ['Long', '₱3,000', '4 hrs'],
+    ['Extra Long', '₱3,500', '4 hrs'],
+    ['Super Long', '₱4,000', '4 hrs'],
   ],
   'Fashion Color': [
-    ['Roots Regrowth', '₱4,999'],
-    ['Short', '₱5,500'],
-    ['Medium', '₱6,000'],
-    ['Long', '₱6,500'],
-    ['Extra Long', '₱7,000'],
-    ['Super Long', '₱7,500'],
+    ['Roots Regrowth', '₱4,999', '5 hrs'],
+    ['Short', '₱5,500', '5 hrs'],
+    ['Medium', '₱6,000', '6 hrs'],
+    ['Long', '₱6,500', '7 hrs'],
+    ['Extra Long', '₱7,000', '7 hrs'],
+    ['Super Long', '₱7,500', '7 hrs'],
   ],
   'Deep Treatment': [
-    ['Roots Regrowth', '₱1,500'],
-    ['Short', '₱2,000'],
-    ['Medium', '₱2,500'],
-    ['Long', '₱3,000'],
-    ['Extra Long', '₱3,500'],
-    ['Super Long', '₱4,000'],
+    ['Roots Regrowth', '₱1,500', '3 hrs'],
+    ['Short', '₱2,000', '3 hrs'],
+    ['Medium', '₱2,500', '3 hrs'],
+    ['Long', '₱3,000', '6 hrs'],
+    ['Extra Long', '₱3,500', '6 hrs'],
+    ['Super Long', '₱4,000', '6 hrs'],
   ],
   'Hair Rebonding': [
-    ['Roots Regrowth (1–3 inches)', '₱2,500'],
-    ['Short', '₱2,800'],
-    ['Medium', '₱3,100'],
-    ['Long', '₱3,500'],
-    ['Extra Long', '₱4,000'],
-    ['Super Long', '₱5,000'],
+    ['Roots Regrowth (1–3 inches)', '₱2,500', '4 hrs'],
+    ['Short', '₱2,800', '4 hrs'],
+    ['Medium', '₱3,100', '4 hrs'],
+    ['Long', '₱3,500', '4 hrs'],
+    ['Extra Long', '₱4,000', '4 hrs'],
+    ['Super Long', '₱5,000', '4 hrs'],
   ],
   'Hair Perming': [
-    ['Roots Regrowth', '₱2,000'],
-    ['Short', '₱2,500'],
-    ['Medium', '₱3,000'],
-    ['Long', '₱3,500'],
-    ['Extra Long', '₱4,000'],
-    ['Super Long', '₱5,000'],
+    ['Roots Regrowth', '₱2,000', '4 hrs'],
+    ['Short', '₱2,500', '4 hrs'],
+    ['Medium', '₱3,000', '4 hrs'],
+    ['Long', '₱3,500', '4 hrs'],
+    ['Extra Long', '₱4,000', '4 hrs'],
+    ['Super Long', '₱5,000', '4 hrs'],
   ],
   'Rebond + Color + Keratin': [
-    ['Roots Regrowth', '₱3,000'],
-    ['Short', '₱3,500'],
-    ['Medium', '₱4,000'],
-    ['Long', '₱4,500'],
-    ['Extra Long', '₱5,000'],
-    ['Super Long', '₱6,000'],
+    ['Roots Regrowth', '₱3,000', '4 hrs'],
+    ['Short', '₱3,500', '4 hrs'],
+    ['Medium', '₱4,000', '6 hrs'],
+    ['Long', '₱4,500', '7 hrs'],
+    ['Extra Long', '₱5,000', '7 hrs'],
+    ['Super Long', '₱6,000', '7 hrs'],
+  ],
+  'Hot Oil Treatment': [
+    ['Regular', '₱500', '3 hrs'], ['Small', '₱1,000', '3 hrs'], ['Medium', '₱1,500', '3 hrs'],
+    ['Large', '₱2,000', '3 hrs'], ['Extra Large', '₱2,300', '6 hrs'], ['Extra Extra', '₱2,500', '6 hrs'], ['Super Long', '₱2,500', '6 hrs'],
+  ],
+  'Hair Mask Treatment': [
+    ['Regular', '₱1,500', '3 hrs'], ['Small', '₱1,600', '3 hrs'], ['Medium', '₱2,000', '3 hrs'],
+    ['Large', '₱2,500', '3 hrs'], ['Extra Large', '₱3,000', '6 hrs'], ['Extra Extra', '₱3,500', '6 hrs'], ['Super Long', '₱3,500', '6 hrs'],
+  ],
+  'Keratin Treatment': [
+    ['Regular', '₱1,500', '3 hrs'], ['Small', '₱2,000', '3 hrs'], ['Medium', '₱2,500', '3 hrs'],
+    ['Large', '₱3,000', '3 hrs'], ['Extra Large', '₱3,500', '6 hrs'], ['Extra Extra', '₱3,500', '6 hrs'], ['Super Long', '₱3,500', '6 hrs'],
+  ],
+  'Brazilian Botox Treatment': [
+    ['Regular', '₱1,500', '3 hrs'], ['Small', '₱2,000', '3 hrs'], ['Medium', '₱2,500', '3 hrs'],
+    ['Large', '₱3,000', '3 hrs'], ['Extra Large', '₱3,500', '6 hrs'], ['Extra Extra', '₱3,500', '6 hrs'], ['Super Long', '₱3,500', '6 hrs'],
+  ],
+  'Collagen Treatment': [
+    ['Regular', '₱3,500', '3 hrs'], ['Small', '₱4,000', '3 hrs'], ['Medium', '₱5,000', '3 hrs'],
+    ['Large', '₱5,500', '3 hrs'], ['Extra Large', '₱6,000', '6 hrs'], ['Extra Extra', '₱6,000', '6 hrs'], ['Super Long', '₱6,000', '6 hrs'],
+  ],
+  'Hair Straightening': [
+    ['Roots Regrowth', 'Price to be confirmed', '4 hrs'], ['Short', 'Price to be confirmed', '4 hrs'],
+    ['Medium', 'Price to be confirmed', '5 hrs'], ['Long', 'Price to be confirmed', '7 hrs'],
+    ['Extra Long', 'Price to be confirmed', '7 hrs'], ['Super Long', 'Price to be confirmed', '7 hrs'],
+  ],
+  'Brazilian Hair Treatment': [
+    ['Roots Regrowth', 'Price to be confirmed', '3 hrs'], ['Short', 'Price to be confirmed', '3 hrs'],
+    ['Medium', 'Price to be confirmed', '3 hrs'], ['Long', 'Price to be confirmed', '6 hrs'],
+    ['Extra Long', 'Price to be confirmed', '6 hrs'], ['Super Long', 'Price to be confirmed', '6 hrs'],
   ],
 };
 
@@ -172,19 +202,31 @@ const serviceCategories = [
 ];
 
 function PriceTable({ rows }) {
-  return <div className="price-table-wrap"><table className="price-table"><thead><tr><th>Hair Length</th><th>Price</th></tr></thead><tbody>{rows.map(([length, price]) => <tr key={length}><td>{length}</td><td>{price}</td></tr>)}</tbody></table></div>;
+  return <div className="price-table-wrap">
+    <table className="price-table">
+      <thead><tr><th>Option / Length</th><th>Price</th><th>Duration</th></tr></thead>
+      <tbody>{rows.map(([length, price, duration]) =>
+        <tr key={length}>
+          <td data-label="Option / Length">{length}</td>
+          <td data-label="Price" className={price.includes('confirmed') ? 'price-tbc' : ''}>{price}</td>
+          <td data-label="Duration">{duration}</td>
+        </tr>
+      )}</tbody>
+    </table>
+  </div>;
 }
 
 function renderServiceInfo(name) {
   if (name === 'Hair Color Correction') {
     return <div className="service-price-detail">
-      <span>Starting range: ₱1,999–₱7,300</span>
+      <span>Price to be confirmed</span>
       <small>Price depends on hair length and complexity. Consultation may be required for complicated corrections.</small>
+      <small className="service-duration">Duration: up to 7 hrs</small>
     </div>;
   }
 
-  if (name === 'Basic Hair Color' || name === 'Fashion Color' || name === 'Deep Treatment' || name === 'Hair Rebonding' || name === 'Hair Perming' || name === 'Rebond + Color + Keratin') {
-    return <><div className="service-price-detail"><span>Price</span></div>{priceTables[name] && <PriceTable rows={priceTables[name]} />}</>;
+  if (priceTables[name]) {
+    return <div className="service-table-block"><PriceTable rows={priceTables[name]} /></div>;
   }
 
   if (name === 'Haircut rate') {
@@ -192,7 +234,23 @@ function renderServiceInfo(name) {
   }
 
   if (haircutServiceNames.has(name)) {
-    return <span className="service-price">₱999</span>;
+    return <span className="service-price">₱999 <small>· 1 hr</small></span>;
+  }
+
+  const serviceDetails = {
+    'Haircut and Hairstyling for Toupee Hair': ['₱1,500', '1 hr'],
+    'Hair Blending': ['₱1,000', '1 hr'],
+    'Special Hair Color': ['Price to be confirmed', '6 hrs'],
+    'Full Body Massage': ['₱1,500', '1 hr'],
+    'Modern Ventosa': ['₱1,500', '1 hr'],
+    'Swedish Massage': ['₱1,500', '1 hr'],
+    'Back Massage': ['Price to be confirmed', '1 hr'],
+    'Hand and Foot Massage': ['Price to be confirmed', '1 hr'],
+    'Hand and Foot Reflexology': ['Price to be confirmed', '1 hr'],
+  };
+  if (serviceDetails[name]) {
+    const [price, duration] = serviceDetails[name];
+    return <span className={`service-price ${price.includes('confirmed') ? 'is-muted' : ''}`}>{price} <small>· {duration}</small></span>;
   }
 
   return <span className="service-price is-muted">Price to be confirmed</span>;
@@ -266,7 +324,10 @@ function Services() {
           const isOpen = openCategory === category.title;
           return <article ref={(element) => { categoryRefs.current[category.title] = element; }} className={`service-category ${isOpen ? 'is-open' : ''}`} key={category.title}>
             <button type="button" className="service-category-header" onClick={() => toggleCategory(category.title)} aria-expanded={isOpen}>
-              <h3>{category.title}</h3>
+              <span className="category-heading">
+                <h3>{category.title}</h3>
+                <small>{category.groups.reduce((total, group) => total + group.services.length, 0)} services</small>
+              </span>
               <span className="accordion-icon" aria-hidden="true">+</span>
             </button>
             <div className={`accordion-panel ${isOpen ? 'is-open' : ''}`}>
