@@ -150,14 +150,14 @@ const priceTables = {
     ['Large', '₱5,500', '3 hrs'], ['Extra Large', '₱6,000', '6 hrs'], ['Extra Extra', '₱6,000', '6 hrs'], ['Super Long', '₱6,000', '6 hrs'],
   ],
   'Hair Straightening': [
-    ['Roots Regrowth', 'Price to be confirmed', '4 hrs'], ['Short', 'Price to be confirmed', '4 hrs'],
-    ['Medium', 'Price to be confirmed', '5 hrs'], ['Long', 'Price to be confirmed', '7 hrs'],
-    ['Extra Long', 'Price to be confirmed', '7 hrs'], ['Super Long', 'Price to be confirmed', '7 hrs'],
+    ['Roots Regrowth', '₱5,991', '4 hrs'], ['Short', '₱5,991', '4 hrs'],
+    ['Medium', '₱5,991', '5 hrs'], ['Long', '₱5,991', '7 hrs'],
+    ['Extra Long', '₱5,991', '7 hrs'], ['Super Long', '₱5,991', '7 hrs'],
   ],
   'Brazilian Hair Treatment': [
-    ['Roots Regrowth', 'Price to be confirmed', '3 hrs'], ['Short', 'Price to be confirmed', '3 hrs'],
-    ['Medium', 'Price to be confirmed', '3 hrs'], ['Long', 'Price to be confirmed', '6 hrs'],
-    ['Extra Long', 'Price to be confirmed', '6 hrs'], ['Super Long', 'Price to be confirmed', '6 hrs'],
+    ['Roots Regrowth', '₱5,991', '3 hrs'], ['Short', '₱5,991', '3 hrs'],
+    ['Medium', '₱5,991', '3 hrs'], ['Long', '₱5,991', '6 hrs'],
+    ['Extra Long', '₱5,991', '6 hrs'], ['Super Long', '₱5,991', '6 hrs'],
   ],
 };
 
@@ -219,7 +219,7 @@ function PriceTable({ rows }) {
 function renderServiceInfo(name) {
   if (name === 'Hair Color Correction') {
     return <div className="service-price-detail">
-      <span>Price to be confirmed</span>
+      <span>₱5,991</span>
       <small>Price depends on hair length and complexity. Consultation may be required for complicated corrections.</small>
       <small className="service-duration">Duration: up to 7 hrs</small>
     </div>;
@@ -240,13 +240,13 @@ function renderServiceInfo(name) {
   const serviceDetails = {
     'Haircut and Hairstyling for Toupee Hair': ['₱1,500', '1 hr'],
     'Hair Blending': ['₱1,000', '1 hr'],
-    'Special Hair Color': ['Price to be confirmed', '6 hrs'],
+    'Special Hair Color': ['₱5,991', '6 hrs'],
     'Full Body Massage': ['₱1,500', '1 hr'],
     'Modern Ventosa': ['₱1,500', '1 hr'],
     'Swedish Massage': ['₱1,500', '1 hr'],
-    'Back Massage': ['Price to be confirmed', '1 hr'],
-    'Hand and Foot Massage': ['Price to be confirmed', '1 hr'],
-    'Hand and Foot Reflexology': ['Price to be confirmed', '1 hr'],
+    'Back Massage': ['₱5,991', '1 hr'],
+    'Hand and Foot Massage': ['₱5,991', '1 hr'],
+    'Hand and Foot Reflexology': ['₱5,991', '1 hr'],
   };
   if (serviceDetails[name]) {
     const [price, duration] = serviceDetails[name];
